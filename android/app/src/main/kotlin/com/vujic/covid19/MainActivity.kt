@@ -1,4 +1,4 @@
-package com.example.covid19_stats
+package com.vujic.covid19
 
 import io.flutter.embedding.android.FlutterActivity
 

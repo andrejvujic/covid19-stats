@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.covid19_stats">
+    package="com.vujic.covid19">
    <application
-        android:label="covid19_stats"
+        android:label="Covid19 podaci"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
