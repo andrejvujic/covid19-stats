@@ -11,7 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  csv:
   http:
   cupertino_icons: ^1.0.2
 
