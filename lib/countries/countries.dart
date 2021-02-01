@@ -8,7 +8,7 @@ class Countries {
   ];
 
   static List<DropdownMenuItem> get dropdownItems {
-    final items = <DropdownMenuItem>[];
+    final items = <DropdownMenuItem<String>>[];
     for (int i = 0; i < Countries.data.length; i++) {
       items.add(
         DropdownMenuItem(

@@ -9,6 +9,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String selectedCountry = Countries.data.first['code'];
 
+  void onCountryChanged(String country) {
+    setState(() => selectedCountry = country);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +23,9 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width * 0.75,
-                child: DropdownButtonFormField(
+                child: DropdownButtonFormField<String>(
                   value: selectedCountry,
-                  onChanged: (_) => null,
+                  onChanged: onCountryChanged,
                   items: Countries.dropdownItems,
                   decoration: InputDecoration(
                     filled: true,
