@@ -6,6 +6,8 @@ class Countries {
     {'name': 'Bosna i Hercegovina', 'code': 'ba'},
     {'name': 'Srbija', 'code': 'rs'},
     {'name': 'Hrvatska', 'code': 'hr'},
+    {'name': 'Crna Gora', 'code': 'me'},
+    {'name': 'Slovenija', 'code': 'si'},
   ];
 
   static List<DropdownMenuItem> get dropdownItems {

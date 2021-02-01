@@ -1,6 +1,8 @@
 import 'package:covid19_stats/countries/countries.dart';
 import 'package:covid19_stats/services/api.dart';
+import 'package:covid19_stats/widgets/data_card.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,22 +15,22 @@ class _HomeState extends State<Home> {
 
   void onCountryChanged(String country) {
     setState(() => selectedCountry = country);
+    getCountryData();
   }
 
   Future<void> getCountryData() async {
-    final List<dynamic> data = await Api.getCountryData(selectedCountry);
+    final dynamic data = await Api.getCountryData(selectedCountry);
     setState(() => countryData = ((data?.length ?? 0) > 0) ? data.first : {});
-    print(data);
   }
 
   Future<void> resetCountryData() async {
     setState(() => countryData = null);
-    await getCountryData();
+    getCountryData();
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (countryData == null) {
         getCountryData();
       }
@@ -65,64 +67,36 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
-                                  Expanded(
-                                    child: Card(
-                                      child: Container(
-                                        height: 132.0,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text(
-                                              'ZARAŽENIH',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${countryData['confirmed'] ?? 0}',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 20.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                  DataCard(
+                                    dataTile: 'ZARAŽENIH',
+                                    dataNumber: countryData['confirmed'],
                                   ),
-                                  Expanded(
-                                    child: Card(
-                                      child: Container(
-                                        height: 132.0,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text(
-                                              'OPORAVLJENIH',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${countryData['recovered'] ?? 0}',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 20.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                  DataCard(
+                                    dataTile: 'OPORAVLJENIH',
+                                    dataNumber: countryData['recovered'],
                                   ),
                                 ],
-                              )
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  DataCard(
+                                    dataTile: 'UMRLIH',
+                                    dataNumber: countryData['deaths'],
+                                  ),
+                                  DataCard(
+                                    dataTile: 'KRITIČNIH',
+                                    dataNumber: countryData['critical'],
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                'Ažurirano ${DateFormat('d / M / yyyy').format(DateTime.parse(countryData["lastUpdate"]))}',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
                             ],
                           ),
                         )
