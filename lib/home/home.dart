@@ -12,6 +12,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String selectedCountry = Countries.data.first['code'];
   Map<String, dynamic> countryData;
+  Map<dynamic, dynamic> totalData;
+
+  Future<void> reset() async {
+    setState(() {
+      countryData = null;
+      totalData = null;
+    });
+  }
 
   void onCountryChanged(String country) {
     setState(() => selectedCountry = country);
@@ -25,7 +33,11 @@ class _HomeState extends State<Home> {
 
   Future<void> resetCountryData() async {
     setState(() => countryData = null);
-    getCountryData();
+  }
+
+  Future<void> getTotalData() async {
+    final dynamic data = await Api.getTotalData();
+    setState(() => totalData = ((data?.length ?? 0) > 0) ? data : {});
   }
 
   @override
@@ -34,11 +46,15 @@ class _HomeState extends State<Home> {
       if (countryData == null) {
         getCountryData();
       }
+
+      if (totalData == null) {
+        getTotalData();
+      }
     });
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: resetCountryData,
+        onRefresh: reset,
         child: ListView(
           children: <Widget>[
             SafeArea(
@@ -72,11 +88,11 @@ class _HomeState extends State<Home> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
                                         DataCard(
-                                          dataTile: 'ZARAŽENIH',
+                                          dataTitle: 'ZARAŽENIH',
                                           dataNumber: countryData['confirmed'],
                                         ),
                                         DataCard(
-                                          dataTile: 'OPORAVLJENIH',
+                                          dataTitle: 'OPORAVLJENIH',
                                           dataNumber: countryData['recovered'],
                                         ),
                                       ],
@@ -86,23 +102,108 @@ class _HomeState extends State<Home> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
                                         DataCard(
-                                          dataTile: 'UMRLIH',
+                                          dataTitle: 'UMRLIH',
                                           dataNumber: countryData['deaths'],
                                         ),
                                         DataCard(
-                                          dataTile: 'KRITIČNIH',
+                                          dataTitle: 'KRITIČNIH',
                                           dataNumber: countryData['critical'],
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      'Ažurirano ${DateFormat('d / M / yyyy').format(DateTime.parse(countryData["lastUpdate"]))}',
+                                      'Ažurirano ${DateFormat('dd / MM / yyyy').format(DateTime.parse(countryData["lastUpdate"]))}',
                                       style: TextStyle(
                                         fontSize: 12.0,
                                       ),
                                     ),
                                   ],
                                 ),
+                              )
+                            : Container(
+                                width: MediaQuery.of(context).size.width * 0.90,
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Greška',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Došlo je do neočekivane greške prilikom učitavanja podataka. Provjerite internet konekciju, pa pokušajte ponovo.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: resetCountryData,
+                                      child: Text(
+                                        'Pokušaj ponovo',
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                    (totalData == null)
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : (totalData.length > 0)
+                            ? Column(
+                                children: <Widget>[
+                                  Text(
+                                    'SVIJET',
+                                    style: TextStyle(
+                                      fontSize: 24.0,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      DataCard(
+                                        dataTitle: 'ZARAŽENIH',
+                                        dataNumber: totalData['Global']
+                                            ['TotalConfirmed'],
+                                        dataChangeNumber: totalData['Global']
+                                            ['NewConfirmed'],
+                                      ),
+                                      DataCard(
+                                        dataTitle: 'UMRLIH',
+                                        dataNumber: totalData['Global']
+                                            ['TotalDeaths'],
+                                        dataChangeNumber: totalData['Global']
+                                            ['NewDeaths'],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      DataCard(
+                                        dataTitle: 'OPORAVLJENIH',
+                                        dataNumber: totalData['Global']
+                                            ['TotalRecovered'],
+                                        dataChangeNumber: totalData['Global']
+                                            ['NewRecovered'],
+                                        isPositive: true,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    'Ažurirano ${DateFormat('dd / MM / yyyy').format(DateTime.parse(totalData["Global"]["Date"]))}',
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ],
                               )
                             : Container(
                                 width: MediaQuery.of(context).size.width * 0.90,

@@ -4,11 +4,14 @@ class DataCard extends StatefulWidget {
   @override
   _DataCardState createState() => _DataCardState();
 
-  final int dataNumber;
-  final String dataTile;
+  final int dataNumber, dataChangeNumber;
+  final String dataTitle;
+  final bool isPositive;
   DataCard({
     this.dataNumber,
-    this.dataTile,
+    this.dataChangeNumber = 0,
+    this.dataTitle,
+    this.isPositive = false,
   });
 }
 
@@ -23,11 +26,10 @@ class _DataCardState extends State<DataCard> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                '${widget.dataTile}',
+                '${widget.dataTitle}',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 12.0,
                 ),
               ),
               Text(
@@ -35,8 +37,19 @@ class _DataCardState extends State<DataCard> {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
+              (widget.dataChangeNumber > 0)
+                  ? Text(
+                      '+${widget.dataChangeNumber}',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: (widget.isPositive) ? Colors.green : Colors.red,
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         ),
