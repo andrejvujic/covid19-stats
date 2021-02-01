@@ -16,6 +16,7 @@ class App extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        fontFamily: 'Poppins',
       ),
       home: Home(),
     );
