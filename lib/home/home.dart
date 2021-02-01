@@ -17,8 +17,8 @@ class _HomeState extends State<Home> {
 
   Future<void> getCountryData() async {
     final List<dynamic> data = await Api.getCountryData(selectedCountry);
-    setState(() => countryData = data.first ?? {});
-    print(countryData);
+    setState(() => countryData = ((data?.length ?? 0) > 0) ? data.first : {});
+    print(data);
   }
 
   Future<void> resetCountryData() async {
@@ -48,8 +48,6 @@ class _HomeState extends State<Home> {
                   onChanged: onCountryChanged,
                   items: Countries.dropdownItems,
                   decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey[200],
                     border: InputBorder.none,
                   ),
                 ),
@@ -62,7 +60,70 @@ class _HomeState extends State<Home> {
                       ? Container(
                           margin: EdgeInsets.symmetric(vertical: 16.0),
                           child: Column(
-                            children: <Widget>[],
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Card(
+                                      child: Container(
+                                        height: 132.0,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              'ZARAŽENIH',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${countryData['confirmed'] ?? 0}',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Card(
+                                      child: Container(
+                                        height: 132.0,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              'OPORAVLJENIH',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${countryData['recovered'] ?? 0}',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
                         )
                       : Container(

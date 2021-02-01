@@ -14,6 +14,9 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
       home: Home(),
     );
   }
