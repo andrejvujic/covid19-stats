@@ -34,13 +34,14 @@ class Api {
     }
     */
 
+    Response response;
     final Map<String, String> queryParameters = {};
 
     final Uri uri = Uri.https('api.covid19api.com',
         '/live/country/$countrySlug/status/confirmed', queryParameters);
 
     try {
-      final Response response = await get(
+      response = await get(
         uri,
         headers: {
           'X-Request-Id': accessToken,
@@ -49,18 +50,20 @@ class Api {
 
       return jsonDecode(response.body);
     } catch (e) {
+      print(response.body);
       return [];
     }
   }
 
   static Future<Map<dynamic, dynamic>> getTotalData() async {
+    Response response;
     final Map<String, String> queryParameters = {};
 
     final Uri uri =
         Uri.https('api.covid19api.com', '/summary', queryParameters);
 
     try {
-      final Response response = await get(
+      response = await get(
         uri,
         headers: {
           'X-Request-Id': accessToken,
@@ -69,6 +72,7 @@ class Api {
 
       return jsonDecode(response.body);
     } catch (e) {
+      print(response.body);
       return {};
     }
   }

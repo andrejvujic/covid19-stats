@@ -1,4 +1,6 @@
 import 'package:covid19_stats/countries/countries.dart';
+import 'package:covid19_stats/home/more_countries.dart';
+import 'package:covid19_stats/route_builders/route_builders.dart';
 import 'package:covid19_stats/services/api.dart';
 import 'package:covid19_stats/widgets/data_card.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,15 @@ class _HomeState extends State<Home> {
   String selectedCountry = Countries.data.first['slug'];
   Map<String, dynamic> countryData;
   Map<dynamic, dynamic> totalData;
+
+  void showMoreCountries() {
+    Navigator.push(
+      context,
+      RouteBuilders.buildSlideRoute(
+        MoreCountries(),
+      ),
+    );
+  }
 
   Future<void> reset() async {
     setState(() {
@@ -35,13 +46,13 @@ class _HomeState extends State<Home> {
     setState(() => countryData = null);
   }
 
-  Future<void> resetTotalData() async {
-    setState(() => totalData = null);
-  }
-
   Future<void> getTotalData() async {
     final dynamic data = await Api.getTotalData();
     setState(() => totalData = ((data?.length ?? 0) > 0) ? data : {});
+  }
+
+  Future<void> resetTotalData() async {
+    setState(() => totalData = null);
   }
 
   @override
@@ -248,7 +259,7 @@ class _HomeState extends State<Home> {
                     Container(
                       margin: EdgeInsets.all(16.0),
                       child: TextButton(
-                        onPressed: () => null,
+                        onPressed: () => showMoreCountries(),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
