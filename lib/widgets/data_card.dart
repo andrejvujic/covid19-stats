@@ -21,7 +21,7 @@ class _DataCardState extends State<DataCard> {
     return Expanded(
       child: Card(
         child: Container(
-          height: 132.0,
+          height: 124.0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

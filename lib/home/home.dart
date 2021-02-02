@@ -36,22 +36,46 @@ class _HomeState extends State<Home> {
     setState(() {
       selectedCountry = country;
       countryData = null;
+
+      /// countryData = null;
     });
-    getCountryData();
+    getTotalData();
+
+    /// getCountryData();
   }
 
   Future<void> getCountryData() async {
-    final dynamic data = await Api.getCountryData(countrySlug: selectedCountry);
-    setState(() => countryData = ((data?.length ?? 0) > 0) ? data.first : {});
-  }
+    /// final dynamic data = await Api.getCountryData(countrySlug: selectedCountry);
+    /// setState(() => countryData = ((data?.length ?? 0) > 0) ? data.first : {});
+    Map<String, dynamic> country;
 
+    if (totalData == null) {
+      country = null;
+    } else if (totalData.length == 0) {
+      country = {};
+    } else {
+      final List<dynamic> countries = totalData['Countries'];
+      for (int i = 0; i < countries.length; i++) {
+        if (selectedCountry == countries[i]['Slug']) {
+          country = countries[i];
+          break;
+        }
+      }
+    }
+
+    setState(() => countryData = country);
+  }
+  /*
   Future<void> resetCountryData() async {
     setState(() => countryData = null);
   }
+  */
 
   Future<void> getTotalData() async {
     final dynamic data = await Api.getTotalData();
+
     setState(() => totalData = ((data?.length ?? 0) > 0) ? data : {});
+    getCountryData();
   }
 
   Future<void> resetTotalData() async {
@@ -62,7 +86,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (countryData == null) {
-        getCountryData();
+        /// getCountryData();
       }
 
       if (totalData == null) {
@@ -101,7 +125,7 @@ class _HomeState extends State<Home> {
                       ),
                       (countryData == null)
                           ? Container(
-                              margin: EdgeInsets.all(4.0),
+                              margin: EdgeInsets.all(16.0),
                               child: Center(
                                 child: CircularProgressIndicator(),
                               ),
@@ -118,12 +142,12 @@ class _HomeState extends State<Home> {
                                           DataCard(
                                             dataTitle: 'ZARAŽENIH',
                                             dataNumber:
-                                                countryData['Confirmed'],
+                                                countryData['TotalConfirmed'],
                                           ),
                                           DataCard(
                                             dataTitle: 'OPORAVLJENIH',
                                             dataNumber:
-                                                countryData['Recovered'],
+                                                countryData['TotalRecovered'],
                                           ),
                                         ],
                                       ),
@@ -133,11 +157,8 @@ class _HomeState extends State<Home> {
                                         children: <Widget>[
                                           DataCard(
                                             dataTitle: 'UMRLIH',
-                                            dataNumber: countryData['Deaths'],
-                                          ),
-                                          DataCard(
-                                            dataTitle: 'AKTIVNIH',
-                                            dataNumber: countryData['Active'],
+                                            dataNumber:
+                                                countryData['TotalDeaths'],
                                           ),
                                         ],
                                       ),
@@ -170,7 +191,7 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       ElevatedButton(
-                                        onPressed: resetCountryData,
+                                        onPressed: resetTotalData,
                                         child: Text(
                                           'Pokušaj ponovo',
                                           style: TextStyle(
@@ -183,7 +204,7 @@ class _HomeState extends State<Home> {
                                 ),
                       (totalData == null)
                           ? Container(
-                              margin: EdgeInsets.all(4.0),
+                              margin: EdgeInsets.all(16.0),
                               child: Center(
                                 child: CircularProgressIndicator(),
                               ),
