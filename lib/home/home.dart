@@ -33,7 +33,10 @@ class _HomeState extends State<Home> {
   }
 
   void onCountryChanged(String country) {
-    setState(() => selectedCountry = country);
+    setState(() {
+      selectedCountry = country;
+      countryData = null;
+    });
     getCountryData();
   }
 

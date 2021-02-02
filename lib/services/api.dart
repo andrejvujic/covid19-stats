@@ -46,9 +46,9 @@ class Api {
         headers: {
           'X-Request-Id': accessToken,
         },
-      );
+      ).timeout(Duration(seconds: 10));
 
-      return jsonDecode(response.body);
+      return jsonDecode(response.body) ?? [];
     } catch (e) {
       print(response.body);
       return [];
@@ -68,9 +68,9 @@ class Api {
         headers: {
           'X-Request-Id': accessToken,
         },
-      );
+      ).timeout(Duration(seconds: 10));
 
-      return jsonDecode(response.body);
+      return jsonDecode(response.body) ?? {};
     } catch (e) {
       print(response.body);
       return {};
