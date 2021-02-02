@@ -97,35 +97,40 @@ class _MoreCountriesState extends State<MoreCountries> {
                       )
                     ],
                   )
-                : Container(
-                    width: MediaQuery.of(context).size.width * 0.90,
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Greška',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'Došlo je do neočekivane greške prilikom učitavanja podataka. Provjerite internet konekciju, pa pokušajte ponovo.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: resetData,
-                          child: Text(
-                            'Pokušaj ponovo',
-                            style: TextStyle(
-                              fontSize: 20.0,
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.90,
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'Greška',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
+                            Text(
+                              'Došlo je do neočekivane greške prilikom učitavanja podataka. Provjerite internet konekciju, pa pokušajte ponovo.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: resetData,
+                              child: Text(
+                                'Pokušaj ponovo',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
       ),
     );

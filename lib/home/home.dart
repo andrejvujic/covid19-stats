@@ -65,21 +65,12 @@ class _HomeState extends State<Home> {
 
     setState(() => countryData = country);
   }
-  /*
-  Future<void> resetCountryData() async {
-    setState(() => countryData = null);
-  }
-  */
 
   Future<void> getTotalData() async {
     final dynamic data = await Api.getTotalData();
 
     setState(() => totalData = ((data?.length ?? 0) > 0) ? data : {});
     getCountryData();
-  }
-
-  Future<void> resetTotalData() async {
-    setState(() => totalData = null);
   }
 
   @override
@@ -191,7 +182,7 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       ElevatedButton(
-                                        onPressed: resetTotalData,
+                                        onPressed: reset,
                                         child: Text(
                                           'Pokušaj ponovo',
                                           style: TextStyle(
@@ -280,7 +271,7 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       ElevatedButton(
-                                        onPressed: resetTotalData,
+                                        onPressed: reset,
                                         child: Text(
                                           'Pokušaj ponovo',
                                           style: TextStyle(
