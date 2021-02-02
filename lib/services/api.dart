@@ -6,9 +6,11 @@ class Api {
   static String key = Keys.rapidApiKey;
   static String accessToken = Keys.postManAccessToken;
 
-  static Future<List<dynamic>> getCountryData(
+  static Future<List<dynamic>> getCountryData({
     String countryCode,
-  ) async {
+    String countrySlug,
+  }) async {
+    /*
     final Map<String, String> queryParameters = {
       "code": countryCode,
     };
@@ -23,6 +25,25 @@ class Api {
           "x-rapidapi-key": key,
           "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
           "useQueryString": 'true'
+        },
+      );
+
+      return jsonDecode(response.body);
+    } catch (e) {
+      return [];
+    }
+    */
+
+    final Map<String, String> queryParameters = {};
+
+    final Uri uri = Uri.https('api.covid19api.com',
+        '/live/country/$countrySlug/status/confirmed', queryParameters);
+
+    try {
+      final Response response = await get(
+        uri,
+        headers: {
+          'X-Request-Id': accessToken,
         },
       );
 

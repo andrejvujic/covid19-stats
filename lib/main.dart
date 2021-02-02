@@ -11,10 +11,11 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Covid19 podaci',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
         fontFamily: 'Poppins',
       ),
       darkTheme: ThemeData(
+        primarySwatch: Colors.grey,
         brightness: Brightness.dark,
         fontFamily: 'Poppins',
       ),

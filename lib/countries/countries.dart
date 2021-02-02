@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 
 class Countries {
   static List<Map<String, String>> data = [
-    {'name': 'Bosna i Hercegovina', 'code': 'ba'},
-    {'name': 'Srbija', 'code': 'rs'},
-    {'name': 'Hrvatska', 'code': 'hr'},
-    {'name': 'Crna Gora', 'code': 'me'},
-    {'name': 'Slovenija', 'code': 'si'},
+    {
+      'name': 'Bosna i Hercegovina',
+      'code': 'ba',
+      'slug': 'bosnia-and-herzegovina'
+    },
+    {'name': 'Srbija', 'code': 'rs', 'slug': 'serbia'},
+    {'name': 'Hrvatska', 'code': 'hr', 'slug': 'croatia'},
+    {'name': 'Crna Gora', 'code': 'me', 'slug': 'montenegro'},
+    {'name': 'Slovenija', 'code': 'si', 'slug': 'slovenia'},
   ];
 
   static List<DropdownMenuItem> get dropdownItems {
@@ -26,7 +30,7 @@ class Countries {
               ),
             ],
           ),
-          value: Countries.data[i]['code'],
+          value: Countries.data[i]['slug'],
         ),
       );
     }
