@@ -68,6 +68,11 @@ class _HomeState extends State<Home> {
     });
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
       body: RefreshIndicator(
         onRefresh: reset,
         child: ListView(
