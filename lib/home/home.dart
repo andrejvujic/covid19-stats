@@ -91,14 +91,14 @@ class _HomeState extends State<Home> {
                     ),
                     (countryData == null)
                         ? Container(
-                            margin: EdgeInsets.all(8.0),
+                            margin: EdgeInsets.all(4.0),
                             child: Center(
                               child: CircularProgressIndicator(),
                             ),
                           )
                         : (countryData.length > 0)
                             ? Container(
-                                margin: EdgeInsets.symmetric(vertical: 16.0),
+                                margin: EdgeInsets.symmetric(vertical: 4.0),
                                 child: Column(
                                   children: <Widget>[
                                     Row(
@@ -170,7 +170,7 @@ class _HomeState extends State<Home> {
                               ),
                     (totalData == null)
                         ? Container(
-                            margin: EdgeInsets.all(8.0),
+                            margin: EdgeInsets.all(4.0),
                             child: Center(
                               child: CircularProgressIndicator(),
                             ),
@@ -179,9 +179,9 @@ class _HomeState extends State<Home> {
                             ? Column(
                                 children: <Widget>[
                                   Text(
-                                    'SVIJET',
+                                    'Svijet',
                                     style: TextStyle(
-                                      fontSize: 24.0,
+                                      fontSize: 16.0,
                                     ),
                                   ),
                                   Row(
@@ -257,7 +257,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                     Container(
-                      margin: EdgeInsets.all(16.0),
+                      margin: EdgeInsets.all(4.0),
                       child: TextButton(
                         onPressed: () => showMoreCountries(),
                         child: Row(
@@ -277,7 +277,12 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                    )
+                    ),
+                    Text(
+                      'Copyright © 2021, Andrej Vujić\nvujicandrej366@gmail.com',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12.0),
+                    ),
                   ],
                 ),
               ),

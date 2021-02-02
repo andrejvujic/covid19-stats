@@ -15,8 +15,17 @@ class App extends StatelessWidget {
         fontFamily: 'Poppins',
       ),
       darkTheme: ThemeData(
-        primarySwatch: Colors.grey,
+        accentColor: Colors.amber,
+        primarySwatch: Colors.amber,
+        scaffoldBackgroundColor: Color(0xFF121212),
+        cardColor: Color(0xFF202020),
+        canvasColor: Color(0xFF202020),
+        dialogBackgroundColor: Color(0xFF202020),
         brightness: Brightness.dark,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          backgroundColor: Color(0xFF202020),
+        ),
         fontFamily: 'Poppins',
       ),
       home: Home(),

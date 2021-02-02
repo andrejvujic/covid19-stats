@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:covid19_stats/services/api.dart';
-import 'package:covid19_stats/widgets/data_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -80,6 +79,18 @@ class _MoreCountriesState extends State<MoreCountries> {
                         },
                       ),
                     ),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 4.0,
+                      ),
+                      child: Text(
+                        'Omogoućio https://api.covid19api.com/.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    )
                   ],
                 )
               : Container(
