@@ -14,7 +14,7 @@ dependencies:
   intl: 
   http:
   cached_network_image:
-  cupertino_icons: ^1.0.2
+  cupertino_icons:
   
 dev_dependencies:
   flutter_test:

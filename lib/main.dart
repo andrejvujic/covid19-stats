@@ -25,7 +25,7 @@ class App extends StatelessWidget {
         brightness: Brightness.dark,
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          backgroundColor: Color(0xFF202020),
+          color: Color(0xFF202020),
         ),
         fontFamily: 'Poppins',
       ),

@@ -50,7 +50,7 @@ class _MoreCountriesState extends State<MoreCountries> {
                                 data['Countries'][index];
                             return ExpansionTile(
                               leading: Container(
-                                width: MediaQuery.of(context).size.width * 0.1,
+                                width: 64.0,
                                 child: CachedNetworkImage(
                                     imageUrl:
                                         'https://www.countryflags.io/${countryData['CountryCode']}/flat/32.png'),
