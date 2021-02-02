@@ -15,7 +15,6 @@ class App extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey[100],
         fontFamily: 'Poppins',
       ),
-      /*
       darkTheme: ThemeData(
         accentColor: Colors.amber,
         primarySwatch: Colors.amber,
@@ -30,7 +29,6 @@ class App extends StatelessWidget {
         ),
         fontFamily: 'Poppins',
       ),
-      */
       home: Home(),
     );
   }
